@@ -76,14 +76,19 @@ export default function Restaurant() {
       maxWidth="lg"
       className={clsx(restaurantsClasses.root, restaurantsClasses.mb40)}
     >
-      <Box className={restaurantsClasses.btnBox}>
-        <Button
-          className={restaurantsClasses.btn}
-          onClick={(e) => setOpen(true)}
-        >
-          Add New
-        </Button>
-      </Box>
+      {cardAction && (
+        <Box className={restaurantsClasses.btnBox}>
+          <Button
+            className={restaurantsClasses.btn}
+            onClick={(e) => {
+              setUpdatedItem(null);
+              setOpen(true);
+            }}
+          >
+            Add New
+          </Button>
+        </Box>
+      )}
       <Grid container spacing={2}>
         {data?.length ? (
           data?.map((item) => (

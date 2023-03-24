@@ -35,10 +35,7 @@ export default function CustomDialog(props) {
   let validationSchema = Yup.object({
     title: Yup.string().required("required"),
     description: Yup.string().required("required"),
-    openAt: Yup.date()
-      .typeError("required")
-      .required("required")
-      .min(new Date(), "Please Choose date after today"),
+    openAt: Yup.date().typeError("required").required("required"),
   });
 
   const onSubmit = (values) => {
@@ -97,6 +94,17 @@ export default function CustomDialog(props) {
                   }
                   className={dialogClasses.input}
                 />
+                {formik?.touched?.description && formik?.errors?.description ? (
+                  <span
+                    style={{
+                      color: "#d32f2f",
+                      margin: "3px 14px 0px",
+                      fontSize: "0.75rem",
+                    }}
+                  >
+                    {formik?.errors?.description}
+                  </span>
+                ) : null}
               </Box>
               <Box mb={2} mt={2}>
                 <InputLabel
