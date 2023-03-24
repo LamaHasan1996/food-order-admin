@@ -1,0 +1,94 @@
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat/Montserrat-Arabic-Regular.ttf");
+  src: local("Montserrat"),
+    url("/fonts/Montserrat/Montserrat-Arabic-Regular.ttf") format("truetype"),
+    url("/fonts/Montserrat/Montserrat-Arabic-Regular.ttf") format("truetype");
+}
+html{
+  overflow-x: hidden;
+  font-family: "Montserrat";
+}
+body{
+  height: 100%;
+}
+#root{
+  height: 100%;
+}
+
+img{
+  max-width: 100%;
+}
+a{
+  text-decoration: none!important;
+  min-width: 45px!important;
+}
+button{
+  background: none!important;
+  min-width: 45px!important;
+}
+::-webkit-scrollbar {
+  width: 0.8em;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ff9752;
+  border-radius: 6px;
+  border: 2px solid #f9f9ff;
+}
+.contentLeft{
+  width: 590px;
+}
+.contentTop{
+  height:60px;
+}
+.toolbar{
+  margin-left: 120px;
+  justify-content: center;
+}
+.widther .MuiPaper-root{
+  width: 175px;
+  overflow: hidden;
+}
+.smaller .MuiPaper-root{
+  width: 50px;
+  overflow: hidden;
+}
+.icon{
+  border: 1px solid #c4c4c4;
+  font-size: 24px;
+  border-radius: 4px;
+  padding: 2px;
+}
+.links > .MuiListItemText-root > .MuiTypography-root{
+  color: #000 !important;
+  font-family: "Montserrat";
+}
+.MuiListItemIcon-root{
+  margin-right: 8px!important;
+}
+.end{
+  display: flex;
+  justify-content: flex-end;
+}
+.logOutBtn{
+  position: absolute!important;
+  right: 45px !important;
+  border: 1px solid #fff !important;
+  color: #fff !important;
+  text-transform: capitalize!important;
+}
+
+.swal2-warning{
+  color:red!important;
+  border-color:red!important;
+}
+.swal2-styled.swal2-confirm{
+  background-color:#ff9752!important
+}
+.swal2-styled.swal2-cancel{
+  background: initial!important;
+  background-color: #6e7881!important;
+}
