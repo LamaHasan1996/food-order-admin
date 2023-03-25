@@ -92,3 +92,12 @@ button{
   background: initial!important;
   background-color: #6e7881!important;
 }
+.success .MuiSnackbarContent-root{
+  background-color: green;
+}
+.error .MuiSnackbarContent-root{
+  background-color: red;
+}
+.info .MuiSnackbarContent-root{
+  background-color:lightseagreen
+}

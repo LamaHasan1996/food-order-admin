@@ -1,12 +1,15 @@
-import { Container, Grid, Typography, Button, Box } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { Card, RestaurantDialog, CustomizedSnackbar } from "../../components";
+import swal from "sweetalert2";
+import { MealDialog, CustomizedSnackbar } from "../../components";
 import useStyles from "../../styles/pages/restaurants";
 import { restaurants } from "../../utils/data";
+import { FiEdit } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
 
-export default function Restaurant() {
-  const restaurantsClasses = useStyles();
+export default function Meals() {
+  const mealClasses = useStyles();
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [cardAction, setCardAction] = useState(false);
@@ -19,7 +22,8 @@ export default function Restaurant() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = restaurants;
+        const response = restaurants?.flatMap((restaurant) => restaurant.meals);
+        console.log(response, "response");
         await new Promise((resolve) => setTimeout(resolve, 3000));
         setData(response);
       } catch (error) {
@@ -38,13 +42,12 @@ export default function Restaurant() {
     else setCardAction(false);
   }, []);
 
-  const addNewRestaurant = (values) => {
+  const addNewMeal = (values) => {
     setSpinner(true);
     if (values) {
       let payload = {
         ...values,
-        id: data?.length + 1,
-        image: "images/restaurants/food5.jpg",
+        id: Math.floor(Math.random() * 1000) + 1,
       };
       setTimeout(() => {
         let newArray = [...data, payload];
@@ -57,7 +60,7 @@ export default function Restaurant() {
       }, 3000);
     }
   };
-  const updateRestaurant = (values) => {
+  const updateMeal = (values) => {
     setSpinner(true);
     if (values) {
       setTimeout(() => {
@@ -86,50 +89,81 @@ export default function Restaurant() {
   return (
     <Container
       maxWidth="lg"
-      className={clsx(restaurantsClasses.root, restaurantsClasses.mb40)}
+      className={clsx(mealClasses.root, mealClasses.mb40)}
     >
       {cardAction && (
-        <Box className={restaurantsClasses.btnBox}>
+        <Box className={mealClasses.btnBox}>
           <Button
-            className={restaurantsClasses.btn}
+            className={mealClasses.btn}
             onClick={(e) => {
               setUpdatedItem(null);
               setOpen(true);
             }}
           >
-            Add New
+            Add New Meal
           </Button>
         </Box>
       )}
-      <Grid container spacing={2}>
+      <Box>
         {data?.length ? (
           data?.map((item) => (
-            <Grid item sm={4} xs={12}>
-              <Card
-                item={item}
-                cardAction={cardAction}
-                data={data}
-                setData={setData}
-                setUpdatedItem={setUpdatedItem}
-                setOpen={setOpen}
-                setOpenSnackbar={setOpenSnackbar}
-                setMessage={setMessage}
-                setStatus={setStatus}
-              />
-            </Grid>
+            <Box className={mealClasses.mealBox}>
+              {cardAction && (
+                <Box className={mealClasses.absoluteBox}>
+                  <FiEdit
+                    className={mealClasses.icon}
+                    onClick={(e) => {
+                      setUpdatedItem(item);
+                      setOpen(true);
+                    }}
+                  />
+                  <AiOutlineDelete
+                    className={mealClasses.icon}
+                    onClick={(e) =>
+                      swal
+                        .fire({
+                          title: "Attention !",
+                          text: "Are You Sure?",
+                          icon: "warning",
+                          buttons: true,
+                          showCancelButton: true,
+                          cancelButtonText: "Cancel",
+                          confirmButtonText: "Ok",
+                          dangerMode: true,
+                        })
+                        .then((result) => {
+                          setTimeout(() => {
+                            setData(
+                              data?.filter((meal) => meal?.id !== item?.id)
+                            );
+                            setOpenSnackbar(true);
+                            setMessage("Deleted Successfully!");
+                            setStatus("error");
+                          }, 3000);
+                        })
+                    }
+                  />
+                </Box>
+              )}
+              <Box>
+                <Box>Meal: {item?.title}</Box>
+                <Box>Price: {item?.cost} SYP</Box>
+              </Box>
+              <Box>Restaurant: {item?.restaurant}</Box>
+              <Box>{item?.description}</Box>
+            </Box>
           ))
         ) : (
-          <Typography className={restaurantsClasses.noDataText}>
-            Loading...
-          </Typography>
+          <Typography className={mealClasses.noDataText}>Loading...</Typography>
         )}
-      </Grid>
-      <RestaurantDialog
+      </Box>
+      <MealDialog
         open={open}
         setOpen={setOpen}
-        addNewRestaurant={addNewRestaurant}
+        addNewMeal={addNewMeal}
         updatedItem={updatedItem}
-        updateRestaurant={updateRestaurant}
+        updateMeal={updateMeal}
+        restaurants={restaurants}
         spinner={spinner}
       />
       <CustomizedSnackbar

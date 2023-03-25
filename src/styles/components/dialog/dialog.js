@@ -13,9 +13,13 @@ const useStyles = makeStyles((theme) => ({
       height: 11,
     },
   },
+  select: {
+    height: 41,
+    width: "100%",
+  },
   inputAutoSize: {
     borderRadius: "10px",
-    width: "95%",
+    width: "100%",
     background: "#FFFFFF",
     minHeight: "41px!important",
     padding: "16.5px 14px",

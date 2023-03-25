@@ -16,7 +16,17 @@ import moment from "moment";
 export default function ToDoCard(props) {
   const cardClasses = useStyles();
   let { title, description, id, image, openAt } = props?.item;
-  let { cardAction, setData, data, setUpdatedItem, setOpen, item } = props;
+  let {
+    cardAction,
+    setData,
+    data,
+    setUpdatedItem,
+    setOpen,
+    item,
+    setOpenSnackbar,
+    setMessage,
+    setStatus,
+  } = props;
 
   return (
     <Card className={cardClasses.card} key={id}>
@@ -79,6 +89,9 @@ export default function ToDoCard(props) {
                 })
                 .then((result) => {
                   setTimeout(() => {
+                    setOpenSnackbar(true);
+                    setMessage("Deleted Successfully!");
+                    setStatus("error");
                     setData(data?.filter((item) => item?.id !== id));
                   }, 3000);
                 })

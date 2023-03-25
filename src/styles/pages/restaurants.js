@@ -12,12 +12,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "end",
     marginBottom: "16px",
   },
-  btn: {
-    textTransform: "capitalize!important",
-    fontSize: `${theme?.elements?.fontSize?.xl}px!important`,
-    border: `1px solid ${theme?.elements?.colors?.primary}!important`,
-    color: `${theme?.elements?.colors?.primary}!important`,
-  },
   contentContainer: {
     padding: "24px 0px",
     justifyContent: "center",
@@ -39,6 +33,19 @@ const useStyles = makeStyles((theme) => ({
     color: `${theme?.elements?.colors?.green}!important`,
     marginRight: "4px!important",
   },
+  icon: {
+    fontSize: `${theme?.elements?.fontSize?.xl + 8}px!important`,
+    color: `${theme?.elements?.colors?.primary}!important`,
+    backgroundColor: `${theme?.elements?.colors?.white}!important`,
+    border: `1px solid ${theme?.elements?.colors?.primary}`,
+    padding: "4px",
+    borderRadius: "5px",
+    marginRight: "8px",
+    "&>:hover": {
+      color: `${theme?.elements?.colors?.primary}!important`,
+      backgroundColor: `${theme?.elements?.colors?.white}!important`,
+    },
+  },
   description: {
     fontSize: `${theme?.elements?.fontSize?.md - 2}px!important`,
     color: theme?.elements?.colors?.black,
@@ -51,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: `${theme?.elements?.fontSize?.md}px!important`,
     color: `${theme?.elements?.colors?.primary}!important`,
     backgroundColor: `${theme?.elements?.colors.white}!important`,
+    textTransform: "capitalize!important",
   },
   addBtn: {
     border: `1px solid ${theme?.elements?.colors?.primary}!important`,
@@ -124,8 +132,13 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "16px!important",
     width: "100%",
   },
+  absoluteBox: {
+    position: "absolute",
+    right: "0px",
+  },
   mealBox: {
-    borderTop: `1px solid ${theme?.elements?.colors?.lightGray}`,
+    position: "relative",
+    borderBottom: `1px solid ${theme?.elements?.colors?.lightGray}`,
     marginTop: 8,
     marginBottom: 8,
     padding: "8px 24px",

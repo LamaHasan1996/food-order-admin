@@ -14,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       justifyContent: "center",
     },
-    "&>:hover": {
-      boxShadow: "0px 8px 0px #f5cfcf38",
-    },
     "& .MuiCardContent-root": {
       backgroundColor: theme?.elements?.colors.offWhite,
     },

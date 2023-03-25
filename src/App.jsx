@@ -23,6 +23,7 @@ import {
   IoIosArrowForward,
   IoIosRestaurant,
 } from "react-icons/io";
+import { IoRestaurantOutline } from "react-icons/io5";
 import { BrowserRouter, Link } from "react-router-dom";
 import "./App.css";
 import { Spinner } from "./components";
@@ -64,6 +65,12 @@ function App() {
       title: "Restaurants",
       link: "/restaurants",
       icon: <IoIosRestaurant className="icon" />,
+    },
+    {
+      id: 1,
+      title: "Meals",
+      link: "/meals",
+      icon: <IoRestaurantOutline className="icon" />,
     },
   ];
 

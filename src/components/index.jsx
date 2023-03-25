@@ -1,6 +1,9 @@
 export { default as CustomTextField } from "./textField/TextField";
 export { default as Spinner } from "./spinner/Spinner";
 export { default as Card } from "./card/Card";
-export { default as CustomDialog } from "./dialog/Dialog";
+export { default as RestaurantDialog } from "./dialog/RestaurantDialog";
+export { default as MealDialog } from "./dialog/MealDialog";
 export { default as CustomTimePicker } from "./timePicker/CustomTimePicker";
 export { default as CustomTextAutoSize } from "./autoSize/AutoSize";
+export { default as CustomMap } from "./map/Map";
+export { default as CustomizedSnackbar } from "./snackbar/Snackbar";

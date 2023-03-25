@@ -1,27 +1,36 @@
-import { Box, Button, IconButton, InputLabel } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputLabel,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import { Field, Formik } from "formik";
-import * as React from "react";
+import moment from "moment";
+import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import * as Yup from "yup";
-import { useState } from "react";
 import {
+  CustomMap,
   CustomTextAutoSize,
   CustomTextField,
   CustomTimePicker,
   Spinner,
-} from "../../components";
+} from "..";
 import useStyles from "../../styles/components/dialog/dialog";
-import moment from "moment";
 
-export default function CustomDialog(props) {
-  let { open, setOpen, addNewRestaurant, updatedItem, updateRestaurant } =
-    props;
-  const [spinner, setSpinner] = useState(false);
-
+export default function RestaurantDialog(props) {
+  let {
+    open,
+    setOpen,
+    addNewRestaurant,
+    updatedItem,
+    updateRestaurant,
+    spinner,
+  } = props;
   const dialogClasses = useStyles();
   const handleClose = () => {
     setOpen(false);
@@ -31,6 +40,8 @@ export default function CustomDialog(props) {
     title: updatedItem?.title ? updatedItem?.title : "",
     description: updatedItem?.description ? updatedItem?.description : "",
     openAt: updatedItem?.openAt ? moment(new Date(updatedItem?.openAt)) : null,
+    lat: updatedItem?.lat ? updatedItem?.lat : 34.8854913,
+    lng: updatedItem?.lng ? updatedItem?.lng : 35.8785918,
   };
   let validationSchema = Yup.object({
     title: Yup.string().required("required"),
@@ -39,10 +50,8 @@ export default function CustomDialog(props) {
   });
 
   const onSubmit = (values) => {
-    setSpinner(true);
     if (updatedItem && updatedItem?.id) updateRestaurant(values);
     else addNewRestaurant(values);
-    setSpinner(false);
   };
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -65,7 +74,8 @@ export default function CustomDialog(props) {
       </IconButton>
       <DialogContent>
         <DialogContentText>
-          To Add/Update Restaurant, please enter all Required Information.
+          To {updatedItem ? "Update" : "Add New "} Restaurant, please enter all
+          Required Information.
         </DialogContentText>
         <Formik
           initialValues={initialValues}
@@ -94,7 +104,7 @@ export default function CustomDialog(props) {
                   }
                   className={dialogClasses.input}
                 />
-                {formik?.touched?.description && formik?.errors?.description ? (
+                {formik?.touched?.title && formik?.errors?.title ? (
                   <span
                     style={{
                       color: "#d32f2f",
@@ -102,7 +112,7 @@ export default function CustomDialog(props) {
                       fontSize: "0.75rem",
                     }}
                   >
-                    {formik?.errors?.description}
+                    {formik?.errors?.title}
                   </span>
                 ) : null}
               </Box>
@@ -168,6 +178,19 @@ export default function CustomDialog(props) {
                     {formik?.errors?.openAt}
                   </span>
                 ) : null}
+              </Box>
+              <Box mb={2} mt={2}>
+                <CustomMap
+                  onClick={(t, map, coord) => {
+                    const { latLng } = coord;
+                    const lat = latLng.lat();
+                    const lng = latLng.lng();
+                    formik.setFieldValue("lat", lat);
+                    formik.setFieldValue("lng", lng);
+                  }}
+                  lat={formik?.values?.lat}
+                  lng={formik?.values?.lng}
+                />
               </Box>
               <Button
                 onClick={(e) => formik?.submitForm()}
